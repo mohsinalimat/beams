@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:EEVR-{YY}-{####}",
+ "creation": "2025-04-24 11:44:06.593123",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ksvj",
+  "ex_employee_name",
+  "contact_number",
+  "purpose_of_visit",
+  "column_break_1cso",
+  "request_date",
+  "visit_date",
+  "person_to_meet"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ksvj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ex_employee_name",
+   "fieldtype": "Data",
+   "label": "Ex Employee Name"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Phone",
+   "label": "Contact Number"
+  },
+  {
+   "fieldname": "purpose_of_visit",
+   "fieldtype": "Data",
+   "label": "Purpose of Visit "
+  },
+  {
+   "fieldname": "person_to_meet",
+   "fieldtype": "Link",
+   "label": "Person to Meet",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "request_date",
+   "fieldtype": "Date",
+   "label": "Posting Date "
+  },
+  {
+   "fieldname": "visit_date",
+   "fieldtype": "Date",
+   "label": "Visit Date"
+  },
+  {
+   "fieldname": "column_break_1cso",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-04-24 12:39:01.862852",
+ "modified_by": "Administrator",
+ "module": "BEAMS",
+ "name": "Ex-Employee Visit Request",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

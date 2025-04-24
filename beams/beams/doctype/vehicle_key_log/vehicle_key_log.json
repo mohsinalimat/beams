@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:VKL-{YY}-{####}",
+ "creation": "2025-04-24 11:25:44.938877",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_fn0y",
+  "vehicle_number",
+  "key_number",
+  "employee",
+  "column_break_h2mj",
+  "key_received_date",
+  "key_returned_date",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_fn0y",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "vehicle_number",
+   "fieldtype": "Data",
+   "label": "Vehicle Number"
+  },
+  {
+   "fieldname": "key_number",
+   "fieldtype": "Data",
+   "label": "Key Number"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Issued To",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nIn Custody\nIssued"
+  },
+  {
+   "fieldname": "column_break_h2mj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "key_received_date",
+   "fieldtype": "Datetime",
+   "label": "Key Issued Date"
+  },
+  {
+   "fieldname": "key_returned_date",
+   "fieldtype": "Datetime",
+   "label": "Key Returned Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-04-24 12:36:43.591221",
+ "modified_by": "Administrator",
+ "module": "BEAMS",
+ "name": "Vehicle Key Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
