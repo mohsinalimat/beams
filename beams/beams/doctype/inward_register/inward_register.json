@@ -12,6 +12,7 @@
   "column_break_weuy",
   "posting_date",
   "posting_time",
+  "visit_date",
   "section_break_zgfs",
   "received_by",
   "purpose_of_visit",
@@ -101,12 +102,18 @@
    "in_list_view": 1,
    "label": "Visitor Name ",
    "reqd": 1
+  },
+  {
+   "fieldname": "visit_date",
+   "fieldtype": "Date",
+   "label": "Visit Date"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-27 11:15:43.490320",
+ "modified": "2025-04-25 15:41:32.141234",
  "modified_by": "Administrator",
  "module": "BEAMS",
  "name": "Inward Register",
