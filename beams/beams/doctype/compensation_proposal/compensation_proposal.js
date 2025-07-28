@@ -11,7 +11,7 @@ frappe.ui.form.on('Compensation Proposal', {
             };
         });
     },
-    proposed_ctc:function (frm){
+    proposed_ctc: function (frm) {
         frm.call("validate_proposed_ctc");
     }
 });

@@ -14,8 +14,8 @@ class CompensationProposal(Document):
 		self.create_todo_on_pending_approval()
 
 	def validate(self):
-		self.validate_proposed_ctc()
 		self.set_payslips_from_job_applicant()
+		self.validate_proposed_ctc()
 
 	def create_offer_from_compensation_proposal(self):
 		'''
@@ -157,6 +157,7 @@ class CompensationProposal(Document):
 						"description": description
 					})
 
+	@frappe.whitelist()
 	def validate_proposed_ctc(self):
 		"""
 		Validate that the proposed CTC value is not negative.
@@ -194,3 +195,4 @@ def remove_assignment_by_role(doc, role):
 					name=doc.name,
 					assign_to=user
 				)
+
