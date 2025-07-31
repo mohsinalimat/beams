@@ -1,5 +1,10 @@
 frappe.ui.form.on('Interview', {
 	refresh: function (frm) {
+		if (frm.doc.average_final_score) {
+				frm.set_value('average_final_score',
+						parseFloat(frm.doc.average_final_score).toFixed(2)
+				);
+		}
 		handle_hrms_custom_buttons(frm);
 
 		let allowed_interviewers = [];
@@ -246,10 +251,6 @@ function validate_feedback_dialog(dialog) {
 		}
 
 		for (let q of question_data) {
-			if (!q.applicant_answer || q.score == null) {
-				missing_fields.push(__('Answer (in Question Assessment)'));
-				break;
-			}
 			if (q.score < 0 || q.score > 10) {
 				frappe.msgprint(__('Question Score must be between 0 and 10.'));
 				return false;
