@@ -37,6 +37,31 @@ def on_interview_feedback_creation(doc):
         if current_status != 'Interview Ongoing':
             frappe.db.set_value('Job Applicant', doc.job_applicant, 'status', 'Interview Ongoing')
 
+def on_submit(doc, method):
+	'''
+		On submission of an Interview Feedback document,
+		append the feedback details to the corresponding Interview record
+	'''
+	interview_doc = frappe.get_doc('Interview', doc.interview)
+	exists = frappe.db.exists(
+		'interview Feedback Details',
+		{
+			'parent': doc.interview,
+			'parenttype': 'Interview',
+			'parentfield': 'interview_feedback_details',
+			'interviewer': doc.interviewer
+		}
+	)
+
+	if not exists:
+		interview_doc.append('interview_feedback_details', {
+			'interviewer': doc.interviewer,
+			'result': doc.result,
+			'interview_feedback_reference': doc.name,
+			'remarks': doc.feedback
+		})
+		interview_doc.save(ignore_permissions=True)
+
 @frappe.whitelist()
 def get_interview_details(interview_round):
     '''
