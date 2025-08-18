@@ -5,6 +5,10 @@ frappe.ui.form.on('Appraisal', {
 		set_table_properties(frm, 'employee_self_kra_rating');
 		set_table_properties(frm, 'dept_self_kra_rating');
 		set_table_properties(frm, 'company_self_kra_rating');
+		set_marks_read_only(frm, 'dept_self_kra_rating','marks');
+		set_marks_read_only(frm, 'company_self_kra_rating','marks');
+		set_marks_read_only(frm, 'employee_self_kra_rating','marks');
+		set_marks_read_only(frm,'appraisal_kra','kra_goals');
 		// Remove the button by targeting its full class list
 		setTimeout(() => {
 			$('.new-feedback-btn.btn.btn-sm.d-inline-flex.align-items-center.justify-content-center.px-3.py-2.border').remove();
@@ -166,19 +170,24 @@ frappe.ui.form.on('Appraisal', {
 			}
 		});
 
+		frappe.db.get_value("Employee",{user_id:frappe.session.user},["name"]).then(res => {
 		// Dynamically add the "Add Category" button only once
-		if (!frm.category_button_added) {
-			const button_html = `
-				<button class="btn btn-primary" id="add_category_button" style="margin-top: 10px;">Add Category</button><br><br>
-			`;
-			$(frm.fields_dict['category_html'].wrapper).after(button_html);
-			frm.category_button_added = true;
+			const current_emp_id = res.message?.name;
+			if (current_emp_id && current_emp_id !== frm.doc.employee){
+				if (!frm.category_button_added) {
+					const button_html = `
+						<button class="btn btn-primary" id="add_category_button" style="margin-top: 10px;">Add Category</button><br><br>
+					`;
+					$(frm.fields_dict['category_html'].wrapper).after(button_html);
+					frm.category_button_added = true;
 
-			// Button click event for adding a category
-			$('#add_category_button').on('click', function () {
-				frm.events.show_add_category_dialog(frm);
-			});
-		}
+					// Button click event for adding a category
+					$('#add_category_button').on('click', function () {
+						frm.events.show_add_category_dialog(frm);
+					});
+				}
+			}
+		})
 		// Hide the chart by targeting its container
 		if (frm.dashboard.wrapper) {
 			frm.dashboard.wrapper.find('.chart-container').hide(); // Adjust selector as needed
@@ -362,7 +371,7 @@ frappe.ui.form.on('Appraisal', {
 					},
 					callback: function () {
 						frappe.msgprint(__('Feedback has been submitted successfully.'));
-						frm.refresh();
+						frm.reload_doc();
 						dialog.hide();
 					}
 				});
@@ -385,7 +394,7 @@ frappe.ui.form.on('Appraisal', {
 			},
 			callback: function () {
 				frappe.msgprint(__('Feedback has been saved successfully.'));
-				frm.refresh();
+				frm.reload_doc();  
 				dialog.hide();
 			}
 		});
@@ -631,3 +640,22 @@ frappe.ui.form.on('Employee Feedback Rating', {
 		frm.refresh_fields();
 	}
 });
+
+/**
+* Sets the "marks" field in a given child table to read-only or editable
+* depending on whether the logged-in user is the Administrator or the employee
+*/
+function set_marks_read_only(frm, table_name,field_name) {
+	frappe.db.get_value("Employee", { user_id: frappe.session.user }, ["name"]).then(res => {
+		const emp_id = res.message?.name || null;
+		const is_admin = frappe.session.user === "Administrator";
+		if (!is_admin && emp_id !== frm.doc.employee ){
+			frm.fields_dict[table_name].grid.update_docfield_property(field_name, 'read_only', 1);
+		} else {
+			frm.fields_dict[table_name].grid.update_docfield_property(field_name, 'read_only', 0);
+		}
+	});
+}
+
+
+
