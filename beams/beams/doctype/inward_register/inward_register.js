@@ -34,6 +34,6 @@ frappe.ui.form.on('Inward Register', {
         }
     },
     posting_date: function (frm) {
-        frm.call("validate_posting_date");
+    frm.call("validate_posting_date");
     }
 });
