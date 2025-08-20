@@ -5147,7 +5147,7 @@ def get_asset_maintenance_task_custom_fields():
 		"Asset Maintenance Task": [
 			{
 				"fieldname": "maintenance_cost",
-				"fieldtype": "Float",
+				"fieldtype": "Currency",
 				"label": "Maintenance Cost",
 				"insert_after": "maintenance_status"
 			}
