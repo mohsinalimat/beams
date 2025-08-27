@@ -107,13 +107,12 @@ class ExternalResourceRequest(Document):
 			frappe.throw("Required tables are missing in the External Resource Request or Technical Request doctype.")
 
 		for resource in self.required_resources:
-			for emp in tech_req.required_employees:
-				if (
-					resource.designation == emp.designation
-					and get_datetime(resource.required_from) == get_datetime(emp.required_from)
-					and get_datetime(resource.required_to) == get_datetime(emp.required_to)
-				):
-					emp.hired_personnel = resource.hired_personnel
+			if resource.hired_personnel and resource.technical_request_employee:
+				frappe.db.set_value(
+					"Technical Request Details",
+					resource.technical_request_employee,
+					"hired_personnel",
+					resource.hired_personnel
+				)
 
-		tech_req.save(ignore_permissions=True)
 		frappe.msgprint(f"Hired Personnel synced to Technical Request {tech_req.name}")
